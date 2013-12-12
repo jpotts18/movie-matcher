@@ -7,9 +7,7 @@
 //
 
 #import "MMViewController.h"
-#import <AFNetworking/AFNetworking.h>
-#import "MMMovie.h"
-#import "MMGame.h"
+#import "MMLoader.h"
 
 #define APIKEY @"af46uut8ma9y77atkyzxbwnp";
 #define BASE_URL "http://api.rottentomatoes.com/api/public/v1.0/";
@@ -34,9 +32,17 @@
     self.movieLimit = 5;
     self.startGameButton.hidden = YES;
     
-    [self loadModel];
+    MMLoader *loader = [[MMLoader alloc] init];
+    loader.delegate = self;
+    
+    [loader loadModel];
     
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 
@@ -44,6 +50,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) loadingCompleted{
+    
+    self.loadingLabel.hidden = YES;
+    self.startGameButton.hidden = NO;
+    
 }
 
 @end

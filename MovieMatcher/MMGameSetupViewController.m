@@ -14,6 +14,8 @@
 @property (strong, nonatomic) MMGame *gameInstance;
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *difficultySegmentControl;
+@property (weak, nonatomic) IBOutlet UILabel *difficultyErrorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameErrorLabel;
 
 @end
 
@@ -23,14 +25,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.difficultySegmentControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
     
     self.gameInstance = [MMGame sharedInstance];
+    
+    self.usernameErrorLabel.hidden = YES;
+    self.difficultyErrorLabel.hidden = YES;
+    [self.difficultySegmentControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+    
+
     
 	// Do any additional setup after loading the view.
 }
 
 #pragma UITextField Delegate Implementation
+
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if(textField.text.length == 0){
+        self.usernameErrorLabel.hidden = YES;
+    }
+    return YES;
+}
 
 - (void) textFieldDidEndEditing:(UITextField *)textField{
     NSLog(@"Textfield finished with value -> %@", textField.text);
@@ -44,18 +58,37 @@
     return YES;
 }
 
-#pragma UIView Actions
+#pragma Actions
 
 - (IBAction)startMatchingButtonTapped:(id)sender {
+    
+    NSInteger errorCount = 0;
+    
     if(self.usernameTextField.text.length == 0){
-        NSLog(@"username not found");
-        
-    } else if([self.difficultySegmentControl selectedSegmentIndex] == -1){
-        NSLog(@"difficulty was not selected");
+        errorCount++;
+        self.usernameErrorLabel.hidden = NO;
+    }
+    
+    if([self.difficultySegmentControl selectedSegmentIndex] == -1){
+        errorCount++;
+        self.difficultyErrorLabel.hidden = NO;
     } else {
         self.gameInstance.difficulty = [self.difficultySegmentControl selectedSegmentIndex];
     }
     
+    if(errorCount == 0){
+        [self performSegueWithIdentifier:@"StartMatchingSegue" sender:self];
+    } 
+    
+    
+}
+- (IBAction)valueChanged:(id)sender {
+    
+    UISegmentedControl *segmentedControl = (UISegmentedControl *) sender;
+    
+    if([segmentedControl selectedSegmentIndex] != -1){
+        self.difficultyErrorLabel.hidden = YES;
+    }
     
 }
 

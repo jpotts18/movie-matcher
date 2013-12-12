@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMLoader.h"
 
-@interface MMViewController : UIViewController
+@interface MMViewController : UIViewController <MMLoadModelDelegate>
 
 @end

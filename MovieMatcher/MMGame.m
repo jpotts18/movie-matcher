@@ -19,9 +19,8 @@
 @implementation MMGame
 
 - (id) init {
-    self = [super init];
     
-    if(!self){
+    if(self = [super init]){
         _totalScore = 0;
         _numCorrect = 0;
         _numIncorrect = 0;
@@ -29,8 +28,8 @@
         _username = @"";
         // roundTimer
         // gameTimer
-        _movies = [[NSMutableArray alloc] init];
-        _tempMovies = [[NSMutableArray alloc] init];
+        _boxOfficeMovieData = [[NSMutableArray alloc] init];
+        _gameMovies = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -44,7 +43,23 @@
     return sharedGame;
 }
 
+- (void) initializeNewGame {
 
+    [self generateRandomGameMovies];
+    
+}
+
+- (void) generateRandomGameMovies {
+
+    self.gameMovies = [self.boxOfficeMovieData mutableCopy];
+    
+    for (NSUInteger i = 0; i < [self.gameMovies count]; i++) {
+        NSUInteger randomNumber = arc4random() % [self.gameMovies count];
+        NSLog(@"Index -> %ld random number -> %ld", (long)i, (long)randomNumber);
+        [self.gameMovies exchangeObjectAtIndex:i withObjectAtIndex:randomNumber];
+    }
+    
+}
 
 
 @end

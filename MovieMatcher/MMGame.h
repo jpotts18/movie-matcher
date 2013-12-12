@@ -18,9 +18,12 @@
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSTimer *roundTimer;
 @property (strong, nonatomic) NSTimer *gameTimer;
-@property (strong, nonatomic) NSMutableArray *movies;
-@property (strong, nonatomic) NSMutableArray *tempMovies;
+@property (strong, nonatomic) NSMutableArray *boxOfficeMovieData;
+@property (strong, nonatomic) NSMutableArray *gameMovies;
 
 + (id)sharedInstance;
+
+- (void) initializeNewGame;
+
 
 @end
