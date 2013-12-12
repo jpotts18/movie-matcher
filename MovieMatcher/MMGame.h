@@ -7,23 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MMMovie.h"
 
 @interface MMGame : NSObject
 
-@property (nonatomic) NSUInteger totalScore;
 @property (nonatomic) NSUInteger difficulty;
-@property (nonatomic) NSUInteger numCorrect;
-@property (nonatomic) NSUInteger numIncorrect;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) NSTimer *roundTimer;
-@property (strong, nonatomic) NSTimer *gameTimer;
 @property (strong, nonatomic) NSMutableArray *boxOfficeMovieData;
 @property (strong, nonatomic) NSMutableArray *gameMovies;
 
 + (id)sharedInstance;
 
 - (void) initializeNewGame;
+- (NSMutableArray *) randomMovieAnswersBy:(MMMovie *)currentMovie;
 
 
 @end
