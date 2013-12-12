@@ -42,15 +42,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="tfg-M2-3Jq"/>
+                    <connections>
+                        <outlet property="loadingLabel" destination="5QF-SL-vMf" id="Cwc-Ia-aX1"/>
+                        <outlet property="startGameButton" destination="4UK-3z-gHr" id="2aU-op-U7B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="226" y="-43"/>
         </scene>
-        <!--View Controller - MovieMatcher-->
+        <!--Game View Controller - MovieMatcher-->
         <scene sceneID="qjs-5a-ogJ">
             <objects>
-                <viewController id="keC-Fi-abi" sceneMemberID="viewController">
+                <viewController id="keC-Fi-abi" customClass="MMGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qnq-Ss-PcX"/>
                         <viewControllerLayoutGuide type="bottom" id="Tdf-YX-vY0"/>
@@ -128,6 +132,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Rdq-QJ-tjy">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UXi-9C-dzF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="K74-gz-VnD" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hhd-QE-VFD">
                         <autoresizingMask key="autoresizingMask"/>
@@ -136,11 +141,10 @@
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="lL8-Zp-e46"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UXi-9C-dzF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="233" y="-891"/>
         </scene>
-        <!--Game Setup View Controller-->
+        <!--Game Setup View Controller - Game Setup-->
         <scene sceneID="fMl-9Y-Vgg">
             <objects>
                 <viewController id="TkY-fB-wrx" customClass="MMGameSetupViewController" sceneMemberID="viewController">
@@ -153,35 +157,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1h5-yK-7JD">
-                                <rect key="frame" x="90" y="139" width="140" height="30"/>
+                                <rect key="frame" x="20" y="139" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NLA-dn-SJ7">
-                                <rect key="frame" x="90" y="281" width="140" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Easy">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                                 <connections>
-                                    <segue destination="j3B-DC-j9A" kind="push" id="fFf-OX-S0a"/>
+                                    <outlet property="delegate" destination="TkY-fB-wrx" id="dCN-Br-gQQ"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnA-t1-tk1">
-                                <rect key="frame" x="90" y="315" width="140" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Medium">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E1X-ZT-jAs">
-                                <rect key="frame" x="91" y="353" width="140" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Hard">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose a difficulty" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7TC-ch-WMo">
                                 <rect key="frame" x="88" y="247" width="143" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -194,10 +177,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oN1-fj-GAO">
+                                <rect key="frame" x="20" y="291" width="280" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Easy"/>
+                                    <segment title="Medium"/>
+                                    <segment title="Hard"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxL-D2-YZC">
+                                <rect key="frame" x="107" y="443" width="106" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Start Matching!">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startMatchingButtonTapped:" destination="TkY-fB-wrx" eventType="touchUpInside" id="qvu-WA-kWz"/>
+                                    <segue destination="j3B-DC-j9A" kind="push" id="Kle-0L-Mr2"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="iHx-fz-Rr9"/>
+                    <navigationItem key="navigationItem" title="Game Setup" id="iHx-fz-Rr9"/>
+                    <connections>
+                        <outlet property="difficultySegmentControl" destination="oN1-fj-GAO" id="dw9-Si-te4"/>
+                        <outlet property="usernameTextField" destination="1h5-yK-7JD" id="uxD-sR-ee5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7u1-LU-myk" sceneMemberID="firstResponder"/>
             </objects>
@@ -277,7 +284,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KL4-vP-1HC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1595" y="-43"/>
+            <point key="canvasLocation" x="1405" y="-43"/>
         </scene>
     </scenes>
     <resources>

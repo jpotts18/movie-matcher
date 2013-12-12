@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MovieMatcher/MMViewController.m"
-            timestampString = "408414205.534207"
+            filePath = "MovieMatcher/MMGameViewController.m"
+            timestampString = "408499167.957225"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "-loadModel"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

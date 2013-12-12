@@ -21,7 +21,7 @@
 - (id) init {
     self = [super init];
     
-    if(self){
+    if(!self){
         _totalScore = 0;
         _numCorrect = 0;
         _numIncorrect = 0;

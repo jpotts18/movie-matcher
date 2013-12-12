@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMGameSetupViewController : UIViewController
+@interface MMGameSetupViewController : UIViewController <UITextFieldDelegate>
 
 @end

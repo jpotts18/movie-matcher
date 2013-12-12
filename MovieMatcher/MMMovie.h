@@ -11,7 +11,7 @@
 
 @interface MMMovie : NSObject
 
-@property (nonatomic) NSInteger movieId;
+@property (nonatomic) NSUInteger movieId;
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSMutableArray *images;
 

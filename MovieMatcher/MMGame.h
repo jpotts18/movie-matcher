@@ -11,6 +11,7 @@
 @interface MMGame : NSObject
 
 @property (nonatomic) NSUInteger totalScore;
+@property (nonatomic) NSUInteger difficulty;
 @property (nonatomic) NSUInteger numCorrect;
 @property (nonatomic) NSUInteger numIncorrect;
 @property (strong, nonatomic) NSDate *created;
