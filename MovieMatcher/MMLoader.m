@@ -80,8 +80,6 @@
             
             movie.images = images;
             
-            [self.gameInstance.boxOfficeMovieData addObject:movie];
-            
             moviesDownloaded++;
             
             if(moviesDownloaded == BOX_OFFICE_LIMIT){
@@ -94,7 +92,7 @@
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"failed to download images");
+            NSLog(@"failed to download images for %@", movie.title);
         }];
     }
     

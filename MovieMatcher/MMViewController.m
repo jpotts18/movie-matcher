@@ -17,7 +17,6 @@
 @interface MMViewController ()
 
 @property (nonatomic) NSInteger moviesCount;
-@property (nonatomic) NSInteger movieLimit;
 @property (weak, nonatomic) IBOutlet UIButton *startGameButton;
 @property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
 @end
@@ -29,7 +28,6 @@
     [super viewDidLoad];
     
     self.moviesCount = 0;
-    self.movieLimit = 5;
     self.startGameButton.hidden = YES;
     
     MMLoader *loader = [[MMLoader alloc] init];

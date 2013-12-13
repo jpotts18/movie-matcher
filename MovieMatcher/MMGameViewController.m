@@ -30,9 +30,9 @@
 
 
 @property (strong, nonatomic) NSTimer *countDownTimer;
+@property (nonatomic) NSInteger pointsCount;
+
 @property (nonatomic) NSInteger currentIndex;
-@property (nonatomic) NSInteger countDownTimerSeconds;
-@property (nonatomic) NSInteger pointsAvailable;
 @property (nonatomic) MMMovie *currentMovie;
 @property (nonatomic) NSString *currentImageUrl;
 @property (strong, nonatomic) NSMutableArray *currentMovieAnswers;
@@ -46,7 +46,7 @@
 {
     [super viewDidLoad];
     
-    self.currentIndex = 0;
+    self.currentIndex = -1;
     self.totalGameScore = 0;
     
     self.gameInstance = [MMGame sharedInstance];
@@ -63,15 +63,26 @@
 }
 
 - (void) nextMovie{
+
+    self.currentIndex++;
     
     if(self.currentIndex < [self.gameInstance.gameMovies count]){
         self.currentMovie = [self.gameInstance.gameMovies objectAtIndex:self.currentIndex];
-        self.currentIndex++;
         [self nextImage];
         [self nextAnswerSet];
     } else {
-        NSLog(@"Game Over");
+        [self launchGameOver];
+
     }
+}
+
+- (void) launchGameOver {
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nice Job!"
+                                                      message:[NSString stringWithFormat:@"You scored %ldpts this round! Would you like to play again?",self.totalGameScore]
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
 }
 
 - (void) nextImage{
@@ -102,95 +113,114 @@
 - (void) nextImageForCurrentMovie{
     
     NSUInteger randomNumber = arc4random() % [self.currentMovie.images count];
-    NSString *randomImageFromMovie = [self.currentMovie.images objectAtIndex:randomNumber];
-    
-    [self.movieImageView setImageWithURL:[NSURL URLWithString:randomImageFromMovie]];
+    self.currentImageUrl = [self.currentMovie.images objectAtIndex:randomNumber];
+    [self.movieImageView setImageWithURL:[NSURL URLWithString:self.currentImageUrl]];
     
 }
 
-- (void) guessBy:(NSInteger)index{
+- (void) guessAtIndex:(NSInteger)index{
     
     MMMovie *guessedMovie = [self.currentMovieAnswers objectAtIndex:index];
     if (guessedMovie.movieId == self.currentMovie.movieId){
         [self correctAnswer];
     } else {
-        [self incorrectAnswer];
+        [self incorrectAnswerAtIndex:index];
     }
     
 }
 
 - (void) correctAnswer{
     
-    self.totalGameScore = self.totalGameScore + self.pointsAvailable;
-    self.gameScoreTotalLabel.text = [NSString stringWithFormat:@"Score: %ld pts",(long)self.totalGameScore];
+    self.totalGameScore += self.pointsCount;
+    self.gameScoreTotalLabel.text = [NSString stringWithFormat:@"Score: %ldpts",(long)self.totalGameScore];
     
+    [self resetButtonState];
     [self stopTimer];
-    [self nextMovie];
+    
+    if (self.currentIndex < [self.gameInstance.gameMovies count]){
+        [self nextMovie];
+    } else {
+        [self stopTimer];
+        [self launchGameOver];
+    }
     
 }
 
-- (void) incorrectAnswer{
-    NSLog(@"You chose incorrectly");
+- (void) incorrectAnswerAtIndex:(NSInteger)index{
+    
+    if(index == 0){
+        self.firstButton.hidden = YES;
+    }
+    if(index == 1){
+        self.secondButton.hidden = YES;
+    }
+    if(index == 2){
+        self.thirdButton.hidden = YES;
+    }
+    if(index == 3){
+        self.fourthButton.hidden = YES;
+    }
 }
 
+#pragma Buttons
 
+- (void) resetButtonState{
+    self.firstButton.hidden = NO;
+    self.secondButton.hidden = NO;
+    self.thirdButton.hidden = NO;
+    self.fourthButton.hidden = NO;
+}
 
-#pragma button taps
 
 - (IBAction)firstButtonGuess:(id)sender {
-    [self guessBy:0];
-    
+    [self guessAtIndex:0];
 }
 - (IBAction)secondButtonGuess:(id)sender {
-    [self guessBy:3];
-    
+    [self guessAtIndex:1];
 }
 - (IBAction)thirdButtonGuess:(id)sender {
-    [self guessBy:2];
-    
+    [self guessAtIndex:2];
 }
 - (IBAction)fourtButtonGuess:(id)sender {
-    [self guessBy:3];
-    
+    [self guessAtIndex:3];
 }
 
-#pragma Timer section
+#pragma Timer Section
 
 - (void) startTimer {
-    self.countDownTimerSeconds = 10;
-    self.pointsAvailable = 1000;
+    self.pointsCount = 1000;
     self.countDownTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(timerTick) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.countDownTimer forMode:NSDefaultRunLoopMode];
 }
 
 - (void) timerTick {
     
-    self.pointsAvailable--;
+    self.pointsCount--;
     
-    if (self.pointsAvailable % 100 == 0) {
-        self.countDownTimerSeconds--;
-    }
-    
-    if (self.pointsAvailable % 250 == 0){
+    if (self.pointsCount % 250 == 0){
         [self nextImageForCurrentMovie];
     }
     
-    if(self.countDownTimerSeconds == 0){
-        NSLog(@"Game Over Dude!!");
+    // Out of time
+    if(self.pointsCount == 0){
+        [self resetButtonState];
         [self stopTimer];
     }
     
-    NSString *pointsValue = [NSString stringWithFormat:@"%ldpts", self.pointsAvailable];
+    if (self.pointsCount == 0 && self.currentIndex < [self.gameInstance.gameMovies count]){
+        [self nextMovie];
+    }
+    
+    
+    NSString *pointsValue = [NSString stringWithFormat:@"%ldpts", self.pointsCount];
     self.pointsLabel.text = pointsValue;
     
 }
+
 - (void) stopTimer {
     [self.countDownTimer invalidate];
-    self.countDownTimerSeconds = 10;
-    self.pointsAvailable = 1000;
-    
-    [self nextMovie];
-    
+    self.pointsCount = 1000;
+    self.pointsLabel.text = [NSString stringWithFormat:@"%ldpts", self.pointsCount];
 }
 
 @end

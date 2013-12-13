@@ -45,7 +45,6 @@
     
     for (NSUInteger i = 0; i < [self.gameMovies count]; i++) {
         NSUInteger randomNumber = arc4random() % [self.gameMovies count];
-        NSLog(@"Index -> %ld random number -> %ld", (long)i, (long)randomNumber);
         [self.gameMovies exchangeObjectAtIndex:i withObjectAtIndex:randomNumber];
     }
     
@@ -56,8 +55,6 @@
     NSMutableArray *randomMovies = [[NSMutableArray alloc] init];
     NSUInteger countOfRandomMovies = 0;
     
-    
-    // add the current movie into the randomMovies array
     [randomMovies addObject:currentMovie];
     countOfRandomMovies++;
     
@@ -68,7 +65,6 @@
         
         BOOL isUnique = YES;
         
-        // loop through and make sure it is not a duplicate
         for (MMMovie *movie in randomMovies) {
             if(movie.movieId == randomMovie.movieId){
                 isUnique = NO;
@@ -88,7 +84,6 @@
     
     for (NSUInteger i = 0; i < [randomMovies count]; i++) {
         NSUInteger randomNumber = arc4random() % [randomMovies count];
-        NSLog(@"Index -> %ld random number -> %ld", (long)i, (long)randomNumber);
         [randomMovies exchangeObjectAtIndex:i withObjectAtIndex:randomNumber];
     }
     
