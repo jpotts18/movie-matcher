@@ -142,7 +142,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Game" image="dice.png" id="t7J-5g-y2p"/>
+                    <tabBarItem key="tabBarItem" title="Game" image="game.png" id="t7J-5g-y2p"/>
                     <navigationItem key="navigationItem" id="7Zw-nt-YwE"/>
                     <connections>
                         <outlet property="firstButton" destination="kGa-6L-2El" id="DnP-L6-oJT"/>
@@ -337,7 +337,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dice.png" width="31" height="31"/>
+        <image name="game.png" width="128" height="128"/>
         <image name="trophy.png" width="31" height="31"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -8,6 +8,7 @@
 
 #import "MMGameViewController.h"
 #import "MMGame.h"
+#import "MMGameRound.h"
 #import "MMMovie.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -23,17 +24,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *thirdButton;
 @property (weak, nonatomic) IBOutlet UIButton *fourthButton;
 
-
 @property (nonatomic) NSInteger totalGameScore;
 @property (nonatomic) NSInteger numberCorrect;
 @property (nonatomic) NSInteger numberInorrect;
-
 
 @property (strong, nonatomic) NSTimer *countDownTimer;
 @property (nonatomic) NSInteger pointsCount;
 
 @property (nonatomic) NSInteger currentIndex;
 @property (nonatomic) MMMovie *currentMovie;
+@property (nonatomic) MMGameRound *gameRound;
 @property (nonatomic) NSString *currentImageUrl;
 @property (strong, nonatomic) NSMutableArray *currentMovieAnswers;
 
@@ -42,8 +42,7 @@
 @implementation MMGameViewController
 
 
-- (void)viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     self.currentIndex = -1;
@@ -56,13 +55,12 @@
     NSLog(@"Game for %@ at difficulty %lu", self.gameInstance.username, (unsigned long)self.gameInstance.difficulty);
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void) nextMovie{
+- (void) nextMovie {
 
     self.currentIndex++;
     
@@ -85,7 +83,20 @@
     [message show];
 }
 
-- (void) nextImage{
+- (void) resetGame {
+    
+    self.currentIndex = -1;
+    self.totalGameScore = 0;
+    self.numberCorrect = 0;
+    self.numberInorrect = 0;
+    
+    self.gameInstance = [MMGame sharedInstance];
+    [self.gameInstance initializeNewGame];
+    [self nextMovie];
+    
+}
+
+- (void) nextImage {
     NSUInteger randomImageIndex = arc4random() % [self.currentMovie.images count];
     self.currentImageUrl = [self.currentMovie.images objectAtIndex:randomImageIndex];
     [self.movieImageView setImageWithURL:[NSURL URLWithString:self.currentImageUrl]
@@ -94,7 +105,7 @@
      }];
 }
 
-- (void) nextAnswerSet{
+- (void) nextAnswerSet {
     
     self.currentMovieAnswers = [self.gameInstance randomMovieAnswersBy:self.currentMovie];
     
@@ -110,7 +121,7 @@
     
 }
 
-- (void) nextImageForCurrentMovie{
+- (void) nextImageForCurrentMovie {
     
     NSUInteger randomNumber = arc4random() % [self.currentMovie.images count];
     self.currentImageUrl = [self.currentMovie.images objectAtIndex:randomNumber];
@@ -118,35 +129,36 @@
     
 }
 
-- (void) guessAtIndex:(NSInteger)index{
+- (void) guessAtIndex:(NSInteger)index {
     
     MMMovie *guessedMovie = [self.currentMovieAnswers objectAtIndex:index];
     if (guessedMovie.movieId == self.currentMovie.movieId){
         [self correctAnswer];
+        self.numberCorrect++;
     } else {
         [self incorrectAnswerAtIndex:index];
+        self.numberInorrect++;
     }
     
 }
 
-- (void) correctAnswer{
-    
-    self.totalGameScore += self.pointsCount;
-    self.gameScoreTotalLabel.text = [NSString stringWithFormat:@"Score: %ldpts",(long)self.totalGameScore];
-    
-    [self resetButtonState];
-    [self stopTimer];
+- (void) correctAnswer {
     
     if (self.currentIndex < [self.gameInstance.gameMovies count]){
+        self.totalGameScore += self.pointsCount;
+        self.gameScoreTotalLabel.text = [NSString stringWithFormat:@"Score: %ldpts",(long)self.totalGameScore];
         [self nextMovie];
     } else {
         [self stopTimer];
         [self launchGameOver];
     }
+
+    [self resetButtonState];
+    [self stopTimer];
     
 }
 
-- (void) incorrectAnswerAtIndex:(NSInteger)index{
+- (void) incorrectAnswerAtIndex:(NSInteger)index {
     
     if(index == 0){
         self.firstButton.hidden = YES;
@@ -164,7 +176,7 @@
 
 #pragma Buttons
 
-- (void) resetButtonState{
+- (void) resetButtonState {
     self.firstButton.hidden = NO;
     self.secondButton.hidden = NO;
     self.thirdButton.hidden = NO;
@@ -221,6 +233,21 @@
     [self.countDownTimer invalidate];
     self.pointsCount = 1000;
     self.pointsLabel.text = [NSString stringWithFormat:@"%ldpts", self.pointsCount];
+}
+
+#pragma alertView
+
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    MMGameRound *currentGameRound = [[MMGameRound alloc] init];
+    
+    currentGameRound.numberCorrect = self.numberCorrect;
+    currentGameRound.numberInorrect = self.numberInorrect;
+    currentGameRound.totalGameScore = self.totalGameScore;
+    
+    [self.gameInstance.rounds addObject:currentGameRound];
+    
+    [self resetGame];
 }
 
 @end

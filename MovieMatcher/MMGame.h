@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSMutableArray *boxOfficeMovieData;
 @property (strong, nonatomic) NSMutableArray *gameMovies;
+@property (strong, nonatomic) NSMutableArray *rounds;
 
 + (id)sharedInstance;
 
