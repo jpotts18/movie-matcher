@@ -28,7 +28,6 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.usernameTextField.text = [defaults objectForKey:@"username"];
-//    self.difficultySegmentControl
     
     self.gameInstance = [MMGame sharedInstance];
     
@@ -81,6 +80,10 @@
     }
     
     if(errorCount == 0){
+        
+        self.gameInstance.username = self.usernameTextField.text;
+        self.gameInstance.difficulty = [self.difficultySegmentControl selectedSegmentIndex];
+        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:self.usernameTextField.text forKey:@"username"];
         [defaults synchronize];

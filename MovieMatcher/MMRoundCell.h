@@ -1,5 +1,5 @@
 //
-//  MMLeaderboardViewController.h
+//  MMRoundCell.h
 //  MovieMatcher
 //
 //  Created by Jeff Potter on 12/12/13.
@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MMLeaderboardViewController : UITableViewController
+@class MMGameRound;
+
+@interface MMRoundCell : UITableViewCell
+
+- (void) updateWithRound:(MMGameRound *)round;
 
 @end

@@ -164,6 +164,7 @@
             <objects>
                 <navigationController definesPresentationContext="YES" id="K74-gz-VnD" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hhd-QE-VFD">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -174,7 +175,7 @@
             </objects>
             <point key="canvasLocation" x="233" y="-891"/>
         </scene>
-        <!--Game Setup View Controller - Game Setup-->
+        <!--Game Setup View Controller - Setup-->
         <scene sceneID="fMl-9Y-Vgg">
             <objects>
                 <viewController id="TkY-fB-wrx" customClass="MMGameSetupViewController" sceneMemberID="viewController">
@@ -246,7 +247,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Game Setup" id="iHx-fz-Rr9"/>
+                    <navigationItem key="navigationItem" title="Setup" id="iHx-fz-Rr9"/>
                     <connections>
                         <outlet property="difficultyErrorLabel" destination="sbK-7M-1q2" id="4vd-e4-2zc"/>
                         <outlet property="difficultySegmentControl" destination="oN1-fj-GAO" id="dw9-Si-te4"/>
@@ -259,17 +260,17 @@
             </objects>
             <point key="canvasLocation" x="785" y="-43"/>
         </scene>
-        <!--Table View Controller - Leaderboard-->
+        <!--Leaderboard View Controller - Leaderboard-->
         <scene sceneID="bji-rF-DSB">
             <objects>
-                <tableViewController id="1ih-ZK-3qr" sceneMemberID="viewController">
+                <tableViewController id="1ih-ZK-3qr" customClass="MMLeaderboardViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="69" sectionHeaderHeight="22" sectionFooterHeight="22" id="IvJ-tM-i2l">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="69" id="edq-ar-CVq">
-                                <rect key="frame" x="0.0" y="86" width="320" height="69"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RoundCell" rowHeight="69" id="edq-ar-CVq" customClass="MMRoundCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="edq-ar-CVq" id="5x0-5h-N5e">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
@@ -283,7 +284,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12/5/2013" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Zz-fP-4pn">
-                                            <rect key="frame" x="20" y="40" width="79" height="21"/>
+                                            <rect key="frame" x="20" y="40" width="152" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
@@ -302,6 +303,12 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="accuracyLabel" destination="UhM-On-GiB" id="oZY-Jw-ytk"/>
+                                    <outlet property="dateLabel" destination="0Zz-fP-4pn" id="DHB-Mt-mlN"/>
+                                    <outlet property="pointsLabel" destination="kvd-U8-pmm" id="vWg-jv-ROZ"/>
+                                    <outlet property="usernameLabel" destination="QY5-mm-fu8" id="6VR-ep-TI8"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -309,6 +316,7 @@
                             <outlet property="delegate" destination="1ih-ZK-3qr" id="Mw2-uF-gJn"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Leaderboard" image="trophy.png" id="kkQ-rX-g48"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZEr-QA-CXo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -320,7 +328,9 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="j3B-DC-j9A" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="b8J-vf-Hnf"/>
+                    <navigationItem key="navigationItem" id="b8J-vf-Hnf">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="2WG-Wg-aEz"/>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="Vgg-xZ-7RI">
                         <autoresizingMask key="autoresizingMask"/>
@@ -337,7 +347,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="game.png" width="128" height="128"/>
+        <image name="game.png" width="64" height="64"/>
         <image name="trophy.png" width="31" height="31"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

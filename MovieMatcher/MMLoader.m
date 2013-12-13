@@ -92,7 +92,7 @@
             }
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"failed to download images for %@", movie.title);
+            NSLog(@"The reason you are seeing this error is because I have been rate limited by the API. :) Please run again, it will eventually let you through.");
         }];
     }
     

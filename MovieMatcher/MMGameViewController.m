@@ -27,6 +27,7 @@
 @property (nonatomic) NSInteger totalGameScore;
 @property (nonatomic) NSInteger numberCorrect;
 @property (nonatomic) NSInteger numberInorrect;
+@property (nonatomic) BOOL gameIsOver;
 
 @property (strong, nonatomic) NSTimer *countDownTimer;
 @property (nonatomic) NSInteger pointsCount;
@@ -44,15 +45,18 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
-    self.currentIndex = -1;
-    self.totalGameScore = 0;
-    
+
     self.gameInstance = [MMGame sharedInstance];
     [self.gameInstance initializeNewGame];
+    
+    [self initializeGame];
     [self nextMovie];
 
     NSLog(@"Game for %@ at difficulty %lu", self.gameInstance.username, (unsigned long)self.gameInstance.difficulty);
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void) didReceiveMemoryWarning {
@@ -67,42 +71,57 @@
     if(self.currentIndex < [self.gameInstance.gameMovies count]){
         self.currentMovie = [self.gameInstance.gameMovies objectAtIndex:self.currentIndex];
         [self nextImage];
+        [self startTimer];
         [self nextAnswerSet];
     } else {
-        [self launchGameOver];
-
+        self.gameIsOver = YES;
+        [self gameOver];
     }
 }
 
-- (void) launchGameOver {
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nice Job!"
-                                                      message:[NSString stringWithFormat:@"You scored %ldpts this round! Would you like to play again?",self.totalGameScore]
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
+
+#pragma Game Over
+
+- (void) gameOver{
+    [self disableButtons];
+    [self stopTimer];
+    [self saveRound];
+    [self launchGameOver];
 }
 
-- (void) resetGame {
+- (void) saveRound {
+    [self.countDownTimer invalidate];
+    
+    MMGameRound *currentGameRound = [[MMGameRound alloc] init];
+    
+    currentGameRound.numberCorrect = self.numberCorrect;
+    currentGameRound.numberInorrect = self.numberInorrect;
+    currentGameRound.totalGameScore = self.totalGameScore;
+    currentGameRound.username = self.gameInstance.username;
+    currentGameRound.finishDate = [NSDate date];
+    
+    [self.gameInstance.rounds addObject:currentGameRound];
+}
+
+- (void) initializeGame {
     
     self.currentIndex = -1;
     self.totalGameScore = 0;
     self.numberCorrect = 0;
     self.numberInorrect = 0;
+    self.gameIsOver = NO;
     
-    self.gameInstance = [MMGame sharedInstance];
+    self.pointsLabel.text = @"0pts";
+    
+    [self enableButtons];
+    
     [self.gameInstance initializeNewGame];
-    [self nextMovie];
-    
 }
 
 - (void) nextImage {
     NSUInteger randomImageIndex = arc4random() % [self.currentMovie.images count];
     self.currentImageUrl = [self.currentMovie.images objectAtIndex:randomImageIndex];
-    [self.movieImageView setImageWithURL:[NSURL URLWithString:self.currentImageUrl]
-     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-         [self performSelector:@selector(startTimer) withObject:nil afterDelay:2.0];
-     }];
+    [self.movieImageView setImageWithURL:[NSURL URLWithString:self.currentImageUrl]];
 }
 
 - (void) nextAnswerSet {
@@ -132,6 +151,7 @@
 - (void) guessAtIndex:(NSInteger)index {
     
     MMMovie *guessedMovie = [self.currentMovieAnswers objectAtIndex:index];
+    
     if (guessedMovie.movieId == self.currentMovie.movieId){
         [self correctAnswer];
         self.numberCorrect++;
@@ -144,17 +164,16 @@
 
 - (void) correctAnswer {
     
-    if (self.currentIndex < [self.gameInstance.gameMovies count]){
-        self.totalGameScore += self.pointsCount;
-        self.gameScoreTotalLabel.text = [NSString stringWithFormat:@"Score: %ldpts",(long)self.totalGameScore];
-        [self nextMovie];
-    } else {
-        [self stopTimer];
-        [self launchGameOver];
-    }
-
-    [self resetButtonState];
+    self.totalGameScore += self.pointsCount;
     [self stopTimer];
+    
+    self.gameScoreTotalLabel.text = [NSString stringWithFormat:@"Score: %ldpts",(long)self.totalGameScore];
+    
+    [self nextMovie];
+    [self resetButtonState];
+
+    
+    self.numberCorrect++;
     
 }
 
@@ -172,6 +191,7 @@
     if(index == 3){
         self.fourthButton.hidden = YES;
     }
+    self.numberInorrect++;
 }
 
 #pragma Buttons
@@ -183,6 +203,18 @@
     self.fourthButton.hidden = NO;
 }
 
+- (void) disableButtons {
+    self.firstButton.enabled = NO;
+    self.secondButton.enabled = NO;
+    self.thirdButton.enabled = NO;
+    self.fourthButton.enabled = NO;
+}
+- (void) enableButtons {
+    self.firstButton.enabled = YES;
+    self.secondButton.enabled = YES;
+    self.thirdButton.enabled = YES;
+    self.fourthButton.enabled = YES;
+}
 
 - (IBAction)firstButtonGuess:(id)sender {
     [self guessAtIndex:0];
@@ -213,16 +245,15 @@
         [self nextImageForCurrentMovie];
     }
     
-    // Out of time
-    if(self.pointsCount == 0){
-        [self resetButtonState];
+    
+    if(self.gameIsOver == YES){
         [self stopTimer];
     }
     
-    if (self.pointsCount == 0 && self.currentIndex < [self.gameInstance.gameMovies count]){
+    // Out of time
+    if (self.pointsCount == 0){
         [self nextMovie];
     }
-    
     
     NSString *pointsValue = [NSString stringWithFormat:@"%ldpts", self.pointsCount];
     self.pointsLabel.text = pointsValue;
@@ -237,17 +268,18 @@
 
 #pragma alertView
 
+- (void) launchGameOver {
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nice Job!"
+                                                      message:[NSString stringWithFormat:@"You scored %ldpts this round! Would you like to play again?",self.totalGameScore]
+                                                     delegate:self
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+}
+
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    
-    MMGameRound *currentGameRound = [[MMGameRound alloc] init];
-    
-    currentGameRound.numberCorrect = self.numberCorrect;
-    currentGameRound.numberInorrect = self.numberInorrect;
-    currentGameRound.totalGameScore = self.totalGameScore;
-    
-    [self.gameInstance.rounds addObject:currentGameRound];
-    
-    [self resetGame];
+    [self initializeGame];
+    [self nextMovie];
 }
 
 @end

@@ -13,5 +13,9 @@
 @property (nonatomic) NSInteger totalGameScore;
 @property (nonatomic) NSInteger numberCorrect;
 @property (nonatomic) NSInteger numberInorrect;
+@property (nonatomic) NSString *username;
+@property (nonatomic, strong) NSDate *finishDate;
+
+-(NSInteger) accuracy;
 
 @end

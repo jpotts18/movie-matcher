@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		624E8C37185449FD00167371 /* MMLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E8C36185449FD00167371 /* MMLeaderboardViewController.m */; };
 		624E8C391854512100167371 /* dice.png in Resources */ = {isa = PBXBuildFile; fileRef = 624E8C381854512100167371 /* dice.png */; };
 		624E8C3B1854529300167371 /* trophy.png in Resources */ = {isa = PBXBuildFile; fileRef = 624E8C3A1854529300167371 /* trophy.png */; };
 		624E8C3E1857E93C00167371 /* MMGameSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 624E8C3D1857E93C00167371 /* MMGameSetupViewController.m */; };
 		62909ABE185933120056A1D0 /* MMGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62909ABD185933120056A1D0 /* MMGameViewController.m */; };
 		62909AC1185935340056A1D0 /* MMLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 62909AC0185935340056A1D0 /* MMLoader.m */; };
 		6299448A185ACDE800C99BD4 /* MMGameRound.m in Sources */ = {isa = PBXBuildFile; fileRef = 62994489185ACDE800C99BD4 /* MMGameRound.m */; };
-		6299448C185AD31400C99BD4 /* game.png in Resources */ = {isa = PBXBuildFile; fileRef = 6299448B185AD31400C99BD4 /* game.png */; };
+		6299448E185AD7D900C99BD4 /* progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6299448D185AD7D900C99BD4 /* progress@2x.png */; };
+		62994490185AD7F300C99BD4 /* game@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6299448F185AD7F300C99BD4 /* game@2x.png */; };
+		62994493185ADBB000C99BD4 /* MMLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62994492185ADBB000C99BD4 /* MMLeaderboardViewController.m */; };
+		62994496185ADD2100C99BD4 /* MMRoundCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62994495185ADD2100C99BD4 /* MMRoundCell.m */; };
 		62EE5A6A1851129500763BAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EE5A691851129500763BAC /* Foundation.framework */; };
 		62EE5A6C1851129500763BAC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EE5A6B1851129500763BAC /* CoreGraphics.framework */; };
 		62EE5A6E1851129500763BAC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62EE5A6D1851129500763BAC /* UIKit.framework */; };
@@ -46,8 +48,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		624E8C35185449FD00167371 /* MMLeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLeaderboardViewController.h; sourceTree = "<group>"; };
-		624E8C36185449FD00167371 /* MMLeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLeaderboardViewController.m; sourceTree = "<group>"; };
 		624E8C381854512100167371 /* dice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dice.png; sourceTree = "<group>"; };
 		624E8C3A1854529300167371 /* trophy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trophy.png; sourceTree = "<group>"; };
 		624E8C3C1857E93C00167371 /* MMGameSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGameSetupViewController.h; sourceTree = "<group>"; };
@@ -58,7 +58,12 @@
 		62909AC0185935340056A1D0 /* MMLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLoader.m; sourceTree = "<group>"; };
 		62994488185ACDE800C99BD4 /* MMGameRound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMGameRound.h; sourceTree = "<group>"; };
 		62994489185ACDE800C99BD4 /* MMGameRound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMGameRound.m; sourceTree = "<group>"; };
-		6299448B185AD31400C99BD4 /* game.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = game.png; sourceTree = "<group>"; };
+		6299448D185AD7D900C99BD4 /* progress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "progress@2x.png"; sourceTree = "<group>"; };
+		6299448F185AD7F300C99BD4 /* game@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "game@2x.png"; sourceTree = "<group>"; };
+		62994491185ADBB000C99BD4 /* MMLeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLeaderboardViewController.h; sourceTree = "<group>"; };
+		62994492185ADBB000C99BD4 /* MMLeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLeaderboardViewController.m; sourceTree = "<group>"; };
+		62994494185ADD2100C99BD4 /* MMRoundCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMRoundCell.h; sourceTree = "<group>"; };
+		62994495185ADD2100C99BD4 /* MMRoundCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMRoundCell.m; sourceTree = "<group>"; };
 		62EE5A661851129500763BAC /* MovieMatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieMatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62EE5A691851129500763BAC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62EE5A6B1851129500763BAC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,12 +122,12 @@
 			children = (
 				62EE5A811851129500763BAC /* MMViewController.h */,
 				62EE5A821851129500763BAC /* MMViewController.m */,
-				624E8C35185449FD00167371 /* MMLeaderboardViewController.h */,
-				624E8C36185449FD00167371 /* MMLeaderboardViewController.m */,
 				624E8C3C1857E93C00167371 /* MMGameSetupViewController.h */,
 				624E8C3D1857E93C00167371 /* MMGameSetupViewController.m */,
 				62909ABC185933120056A1D0 /* MMGameViewController.h */,
 				62909ABD185933120056A1D0 /* MMGameViewController.m */,
+				62994491185ADBB000C99BD4 /* MMLeaderboardViewController.h */,
+				62994492185ADBB000C99BD4 /* MMLeaderboardViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -162,7 +167,8 @@
 		62EE5A6F1851129500763BAC /* MovieMatcher */ = {
 			isa = PBXGroup;
 			children = (
-				6299448B185AD31400C99BD4 /* game.png */,
+				6299448F185AD7F300C99BD4 /* game@2x.png */,
+				6299448D185AD7D900C99BD4 /* progress@2x.png */,
 				624E8C3A1854529300167371 /* trophy.png */,
 				624E8C381854512100167371 /* dice.png */,
 				624E8C34185444E700167371 /* ViewControllers */,
@@ -173,6 +179,8 @@
 				62EE5A7E1851129500763BAC /* Main_iPad.storyboard */,
 				62EE5A841851129500763BAC /* Images.xcassets */,
 				62EE5A701851129500763BAC /* Supporting Files */,
+				62994494185ADD2100C99BD4 /* MMRoundCell.h */,
+				62994495185ADD2100C99BD4 /* MMRoundCell.m */,
 			);
 			path = MovieMatcher;
 			sourceTree = "<group>";
@@ -301,12 +309,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				62EE5A801851129500763BAC /* Main_iPad.storyboard in Resources */,
+				6299448E185AD7D900C99BD4 /* progress@2x.png in Resources */,
+				62994490185AD7F300C99BD4 /* game@2x.png in Resources */,
 				624E8C3B1854529300167371 /* trophy.png in Resources */,
 				624E8C391854512100167371 /* dice.png in Resources */,
 				62EE5A851851129500763BAC /* Images.xcassets in Resources */,
 				62EE5A7D1851129500763BAC /* Main_iPhone.storyboard in Resources */,
 				62EE5A741851129500763BAC /* InfoPlist.strings in Resources */,
-				6299448C185AD31400C99BD4 /* game.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,10 +370,11 @@
 				62EE5A7A1851129500763BAC /* MMAppDelegate.m in Sources */,
 				62EE5A831851129500763BAC /* MMViewController.m in Sources */,
 				624E8C3E1857E93C00167371 /* MMGameSetupViewController.m in Sources */,
-				624E8C37185449FD00167371 /* MMLeaderboardViewController.m in Sources */,
 				6299448A185ACDE800C99BD4 /* MMGameRound.m in Sources */,
+				62994493185ADBB000C99BD4 /* MMLeaderboardViewController.m in Sources */,
 				62909ABE185933120056A1D0 /* MMGameViewController.m in Sources */,
 				62EE5A761851129500763BAC /* main.m in Sources */,
+				62994496185ADD2100C99BD4 /* MMRoundCell.m in Sources */,
 				62909AC1185935340056A1D0 /* MMLoader.m in Sources */,
 				62EE5AA71851178900763BAC /* MMMovie.m in Sources */,
 				62EE5AA4185112D500763BAC /* MMGame.m in Sources */,

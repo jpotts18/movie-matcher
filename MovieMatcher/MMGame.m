@@ -26,6 +26,7 @@
         _username = @"";
         _boxOfficeMovieData = [[NSMutableArray alloc] init];
         _gameMovies = [[NSMutableArray alloc] init];
+        _rounds = [[NSMutableArray alloc] init];
     }
     return self;
 }

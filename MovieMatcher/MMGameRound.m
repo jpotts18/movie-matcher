@@ -10,4 +10,9 @@
 
 @implementation MMGameRound
 
+- (NSInteger) accuracy {
+    NSInteger total = self.numberCorrect + self.numberInorrect;
+    return self.numberCorrect / total;
+}
+
 @end
